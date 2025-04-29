@@ -111,6 +111,11 @@ function renderProducts(productsList) {
       alert("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
+       if (isNaN(number) || isNaN(cep)) {
+        alert("Número e CEP devem conter apenas números.");
+        return;
+      }
+      
   
     alert(`Compra realizada por ${name}!`);
     window.location.href = 'pagamento.html';
