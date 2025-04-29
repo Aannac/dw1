@@ -1,0 +1,74 @@
+/* Definindo uma paleta de cores em tons de rosa claro */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f1f8;
+    color: #171414;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Usando a altura total da viewport */
+    text-align: center;
+    flex-direction: column;
+  }
+  
+  h1 {
+    color: #e91e63;
+    font-size: 5vw; /* A fonte se ajusta conforme a largura da tela */
+    margin-bottom: 3vh; /* Distância proporcional à altura da tela */
+  }
+  
+  .payment-section {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 5vh 8vw; /* Padding ajustado para que fique proporcional à tela */
+    width: 80%;
+    max-width: 400px;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .payment-section:hover {
+    transform: scale(1.05);
+  }
+  
+  img {
+    width: 50%; /* Ajusta a largura da imagem para ser proporcional */
+    max-width: 200px;
+    margin-bottom: 3vh; /* Distância proporcional à altura da tela */
+    border-radius: 10px;
+  }
+  
+  p {
+    font-size: 2vh; /* Tamanho da fonte proporcional à altura da tela */
+    margin-bottom: 3vh; /* Distância proporcional à altura da tela */
+    color: #7d4c92;
+  }
+  
+  strong {
+    color: #e91e63;
+  }
+  
+  button {
+    background-color: #e91e63;
+    color: white;
+    padding: 2vh 4vw; /* Padding proporcional à altura e largura da tela */
+    border: none;
+    border-radius: 8px;
+    font-size: 2.2vw; /* O tamanho da fonte é proporcional à largura da tela */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #c2185b;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
