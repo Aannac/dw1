@@ -23,10 +23,8 @@ const products = [
   ];
   
   const cart = [];
-  
-  
- // Renderiza os produtos na tela (agora aceita uma lista de produtos)
-function renderProducts(productsList) {
+
+  function renderProducts(productsList) {
     const productList = document.getElementById('product-list');
     productList.innerHTML = '';
     productsList.forEach(p => {
@@ -93,36 +91,138 @@ function renderProducts(productsList) {
     document.getElementById('cartModal').style.display = 'none';
   }
   
-  // Abre o checkout
   function openCheckout() {
     document.getElementById('checkoutModal').style.display = 'flex';
     document.getElementById('cartModal').style.display = 'none';
+  
+    const cupom = localStorage.getItem('cupomDesconto');
+    const cupomSection = document.getElementById('cupom-section');
+    const botaoCupom = document.getElementById('btn-aplicar-cupom');
+  
+    if (cupom === 'DESCONTO10') {
+      cupomSection.style.display = 'block';
+      botaoCupom.disabled = false;
+    } else {
+      cupomSection.style.display = 'none';
+      botaoCupom.disabled = true;
+    }
   }
   
-  function finalizePurchase() {
-    const name = document.getElementById("Nome").value.trim();
-    const city = document.getElementById("Cidade").value.trim();
-    const street = document.getElementById("Rua").value.trim();
-    const number = document.getElementById("Numero").value.trim();
-    const cep = document.getElementById("CEP").value.trim();
-    const complement = document.getElementById("Complemento")?.value.trim() || "";
   
-    if (!name || !city || !street || !number || !cep) {
-      alert("Por favor, preencha todos os campos obrigatórios.");
+  
+  
+  
+  // Função para aplicar o cupom de desconto
+  function aplicarCupom() {
+    const cupom = localStorage.getItem('cupomDesconto');
+  
+    if (!cupom) {
+      alert('Você precisa raspar o cartão para obter um cupom!');
       return;
     }
-       if (isNaN(number) || isNaN(cep)) {
-        alert("Número e CEP devem conter apenas números.");
-        return;
-      }
-      
   
-    alert(`Compra realizada por ${name}!`);
-    window.location.href = 'pagamento.html';
+    const totalElement = document.getElementById('cart-total');
+    const totalOriginal = parseFloat(totalElement.innerText);
+  
+    const desconto = cupom === 'DESCONTO10' ? 10 : 0;
+  
+    if (desconto > 0) {
+      const totalComDesconto = totalOriginal * ((100 - desconto) / 100);
+      totalElement.innerText = totalComDesconto.toFixed(2);
+      alert(`Cupom aplicado: ${cupom} (-${desconto}%)`);
+    } else {
+      alert('Cupom inválido.');
+    }
   }
   
-  
+// Função para finalizar a compra
+function finalizePurchase() {
+  const name = document.getElementById("Nome").value.trim();
+  const city = document.getElementById("Cidade").value.trim();
+  const street = document.getElementById("Rua").value.trim();
+  const number = document.getElementById("Numero").value.trim();
+  const cep = document.getElementById("CEP").value.trim();
+  const complement = document.getElementById("Complemento")?.value.trim() || "";
 
-  document.querySelector('.cart').addEventListener('click', openCart);
+  if (!name || !city || !street || !number || !cep) {
+    alert("Por favor, preencha todos os campos obrigatórios.");
+    return;
+  }
   
+  if (isNaN(number) || isNaN(cep)) {
+    alert("Número e CEP devem conter apenas números.");
+    return;
+  }
+
+  const total = parseFloat(document.getElementById('cart-total').innerText);
+
+  localStorage.setItem('valorTotal', total.toFixed(2)); // Salva o valor total
+
+
+  alert(`Compra realizada por ${name}! Total: R$ ${total.toFixed(2)}`);
+  window.location.href = '../Pagamento/Pagamento.html';
+}
+function rasparCupom() {
+  // Defina o cupom que será guardado no localStorage após a raspadinha
+  const cupom = 'DESCONTO10';
+  localStorage.setItem('cupomDesconto', cupom);
+
+  // Exibe uma mensagem ou muda o estilo do botão para indicar que foi raspado
+  alert("Você raspou o cupom! Agora pode aplicá-lo.");
+  
+  // Habilita o botão de aplicar cupom no checkout
+  const botaoCupom = document.getElementById('btn-aplicar-cupom');
+  botaoCupom.disabled = false;
+}
+function revelarCupom() {
+  const camada = document.getElementById('camada-cinza');
+  const cupom = document.getElementById('cupom');
+
+  camada.style.opacity = 0;
+  setTimeout(() => {
+    camada.style.display = 'none';
+    cupom.style.display = 'block';
+
+    // Armazena o cupom apenas quando for raspado
+    localStorage.setItem('cupomDesconto', 'DESCONTO10');
+    alert('Cupom revelado: DESCONTO10');
+
+    // Habilita o botão de aplicar cupom no checkout
+    const botaoCupom = document.getElementById('btn-aplicar-cupom');
+    botaoCupom.disabled = false; // Agora, o botão só é habilitado após a raspadinha
+  }, 500);
+}
+function aplicarCupom() {
+  const cupom = localStorage.getItem('cupomDesconto');
+
+  if (!cupom) {
+    alert('Você precisa raspar o cartão para obter um cupom!');
+    return;
+  }
+
+  const totalElement = document.getElementById('cart-total');
+  const totalOriginal = parseFloat(totalElement.innerText);
+
+  const desconto = cupom === 'DESCONTO10' ? 10 : 0;
+
+  if (desconto > 0) {
+    const totalComDesconto = totalOriginal * ((100 - desconto) / 100);
+    totalElement.innerText = totalComDesconto.toFixed(2);
+    alert(`Cupom aplicado: ${cupom} (-${desconto}%)`);
+  } else {
+    alert('Cupom inválido.');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
   renderProducts(products);
+
+  const cupomSection = document.getElementById('cupom-section');
+  if (cupomSection) {
+    cupomSection.style.display = 'none'; // Garantia extra
+  }
+});
+
+
+
+

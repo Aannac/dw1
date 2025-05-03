@@ -205,4 +205,23 @@ body {
     font-weight: bold;
     color: #e194b9;
   }
+  .raspadinha-btn {
+    display: inline-block;
+    background-color: #ffd1ec;
+    padding: 1vh 2vw;
+    border-radius: 10px;
+    color: #d6006e;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 2vh auto;
+    transition: background-color 0.3s ease;
+  }
+  
+  .raspadinha-btn:hover {
+    background-color: #fdb8de;
+  }
+  #btn-aplicar-cupom:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
   

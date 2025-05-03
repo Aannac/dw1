@@ -13,7 +13,8 @@
     <div><h1>Plushies🧸</h1></div>
     <div>
       <input type="text" id="searchInput" placeholder="Pesquisar..." oninput="searchProducts()">
-      <span class="cart">🛒 Carrinho (<span id="cart-count">0</span>)</span>
+      <span class="cart" onclick="openCart()">🛒 Carrinho (<span id="cart-count">0</span>)</span>
+      <a href="./cupom/cupom.html" class="raspadinha-btn">🎁  Ganhe um Cupom de Desconto</a>
     </div>
   </header>
 
@@ -32,33 +33,22 @@
     </div>
   </div>
 
-<!-- MANTENHA SOMENTE ESTE BLOCO -->
-<div id="checkoutModal" class="modal">
-  <div class="modal-content">
-    <h2>Finalizar Compra</h2>
-    <input type="text" placeholder="Nome Completo" id="Nome">
-    <input type="text" placeholder="Cidade" id="Cidade">
-    <input type="text" placeholder="Rua" id="Rua">
-     <input type="number" placeholder="Número" id="Numero">
-    <input type="number" placeholder="CEP" id="CEP">    
-    <input type="text" placeholder="Complemento" id="Complemento">
-    <button onclick="finalizePurchase()">Ir para Pagamento</button>
-  </div>
-</div>
-
-
-
-  <div id="cartModal" class="modal">
+  <div id="checkoutModal" class="modal">
     <div class="modal-content">
-      <h2>Seu Carrinho</h2>
-      <div id="cart-items"></div>
-      <p>Total: R$ <span id="cart-total">0.00</span></p>
-      <button onclick="openCheckout()">Finalizar Compra</button>
-      <button onclick="closeCart()">Fechar</button>
+      <h2>Finalizar Compra</h2>
+      <input type="text" placeholder="Nome Completo" id="Nome">
+      <input type="text" placeholder="Cidade" id="Cidade">
+      <input type="text" placeholder="Rua" id="Rua">
+      <input type="number" placeholder="Número" id="Numero">
+      <input type="number" placeholder="CEP" id="CEP">    
+      <input type="text" placeholder="Complemento" id="Complemento">
+      <div id="cupom-section" style="display: none;">
+        <button id="btn-aplicar-cupom" onclick="aplicarCupom()">Aplicar Cupom</button>
+      </div>      
+      <button onclick="finalizePurchase()">Ir para Pagamento</button>
     </div>
   </div>
-  
-  
+
   <script src="./Pelucia.js"></script>
 </body>
 </html>
